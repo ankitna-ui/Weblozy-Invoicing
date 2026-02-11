@@ -1,19 +1,30 @@
 import React from 'react';
 import { 
-  TrendingUp, IndianRupee, AlertCircle, FileCheck, ArrowUpRight, 
+  TrendingUp, IndianRupee, ArrowUpRight, 
   ArrowDownRight, Plus, Users, Wallet, Activity, CalendarDays,
   MoreHorizontal, Download
 } from 'lucide-react';
 import { 
   BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, 
-  PieChart, Pie, Cell, Legend, AreaChart, Area 
+  PieChart, Pie, Cell, Legend
 } from 'recharts';
 import { MONTHLY_FINANCIAL_DATA, SALES_DISTRIBUTION, RECENT_ACTIVITY, DUMMY_INVOICES } from '../constants';
 import { formatCurrency, getStatusColor } from '../utils';
 
 // --- COMPONENTS ---
 
-const StatCard = ({ title, value, subtext, icon: Icon, trend, trendValue, colorClass, borderClass }: any) => (
+interface StatCardProps {
+    title: string;
+    value: string;
+    subtext?: string;
+    icon: React.ElementType;
+    trend?: 'up' | 'down';
+    trendValue?: string;
+    colorClass: string;
+    borderClass: string;
+}
+
+const StatCard: React.FC<StatCardProps> = ({ title, value, subtext, icon: Icon, trend, trendValue, colorClass, borderClass }) => (
   <div className={`bg-white dark:bg-slate-800 p-5 md:p-6 rounded-2xl border ${borderClass} dark:border-slate-700 shadow-sm hover:shadow-lg transition-all duration-300 group`}>
     <div className="flex justify-between items-start mb-4">
       <div className={`p-3 rounded-xl ${colorClass} text-white shadow-lg group-hover:scale-110 transition-transform duration-300`}>
@@ -117,7 +128,7 @@ const Dashboard: React.FC = () => {
                 </div>
             </div>
             <div className="h-64 md:h-80 w-full">
-                <ResponsiveContainer width="100%" height="100%">
+                <ResponsiveContainer width="100%" height="100%" minWidth={0}>
                     <BarChart data={MONTHLY_FINANCIAL_DATA} barGap={0} barCategoryGap={20}>
                         <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#334155" opacity={0.2} />
                         <XAxis 
@@ -157,10 +168,10 @@ const Dashboard: React.FC = () => {
 
         {/* --- SECONDARY CHART: SALES SPLIT & GST --- */}
         <div className="space-y-6">
-            <div className="bg-white dark:bg-slate-800 p-6 rounded-2xl border border-slate-100 dark:border-slate-700 shadow-sm h-[320px] lg:h-[60%] flex flex-col transition-colors duration-300">
+            <div className="bg-white dark:bg-slate-800 p-6 rounded-2xl border border-slate-100 dark:border-slate-700 shadow-sm h-[380px] flex flex-col transition-colors duration-300">
                 <h3 className="text-lg font-bold text-slate-800 dark:text-white mb-2">Sales Distribution</h3>
                 <div className="flex-1 min-h-[180px]">
-                    <ResponsiveContainer width="100%" height="100%">
+                    <ResponsiveContainer width="100%" height="100%" minWidth={0}>
                         <PieChart>
                             <Pie
                                 data={SALES_DISTRIBUTION}

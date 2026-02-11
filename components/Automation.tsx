@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { 
-  Zap, Mail, Clock, Repeat, Shield, Activity, Settings, 
-  Plus, X, Save, CheckCircle2, ChevronRight, AlertCircle,
-  MessageCircle, Calendar, Play, Pause, Search, ArrowRight,
+  Zap, Mail, Clock, Repeat, Shield, Settings, 
+  Plus, X, Save, CheckCircle2, AlertCircle,
+  MessageCircle, Search, ArrowRight,
   TrendingUp, History
 } from 'lucide-react';
 

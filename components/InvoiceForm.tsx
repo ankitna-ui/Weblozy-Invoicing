@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { Plus, Trash2, Save, FileCheck, ArrowRight, Calculator, RefreshCw, Calendar, User, MapPin, Building2, ChevronDown, PenSquare, IndianRupee } from 'lucide-react';
-import { Client, Product, LineItem, TaxBreakdown, Estimate } from '../types';
+import { Plus, Trash2, FileCheck, Calendar, User, MapPin, Building2, PenSquare, IndianRupee } from 'lucide-react';
+import { Product, LineItem, TaxBreakdown } from '../types';
 import { DUMMY_CLIENTS, DUMMY_PRODUCTS, DEFAULT_TERMS } from '../constants';
 import { calculateTaxes, formatCurrency, HOME_STATE, generateId, generateNumber, numberToWords } from '../utils';
 

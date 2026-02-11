@@ -1,14 +1,13 @@
 import React, { useState } from 'react';
 import { 
   BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, 
-  PieChart, Pie, Cell, AreaChart, Area, LineChart, Line 
+  PieChart, Pie, Cell, AreaChart, Area 
 } from 'recharts';
 import { 
   FileText, Download, Calendar, Filter, TrendingUp, 
-  ArrowUpRight, ArrowDownRight, Printer, Share2, FileBarChart,
-  PieChart as PieIcon, AlertCircle, Table
+  ArrowUpRight, ArrowDownRight, PieChart as PieIcon, AlertCircle
 } from 'lucide-react';
-import { DUMMY_INVOICES, MONTHLY_FINANCIAL_DATA, SALES_DISTRIBUTION, DUMMY_CLIENTS } from '../constants';
+import { MONTHLY_FINANCIAL_DATA, SALES_DISTRIBUTION, DUMMY_CLIENTS } from '../constants';
 import { formatCurrency } from '../utils';
 
 // --- MOCK DATA FOR ADVANCED CHARTS ---
@@ -38,7 +37,17 @@ const GSTR_DATA = [
 
 // --- SUB-COMPONENTS ---
 
-const SummaryCard = ({ title, value, subtext, trend, trendValue, icon: Icon, color }: any) => (
+interface SummaryCardProps {
+    title: string;
+    value: string;
+    subtext: string;
+    trend?: 'up' | 'down';
+    trendValue?: string;
+    icon: React.ElementType;
+    color: string;
+}
+
+const SummaryCard: React.FC<SummaryCardProps> = ({ title, value, subtext, trend, trendValue, icon: Icon, color }) => (
   <div className="bg-white dark:bg-slate-800 p-5 rounded-xl border border-slate-200 dark:border-slate-700 shadow-sm flex items-start justify-between transition-colors duration-300">
     <div>
       <p className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-1">{title}</p>
@@ -102,7 +111,7 @@ const Reports: React.FC = () => {
                 <div className="bg-white dark:bg-slate-800 p-6 rounded-xl border border-slate-200 dark:border-slate-700 shadow-sm transition-colors duration-300">
                     <h3 className="text-lg font-bold text-slate-800 dark:text-white mb-6">Revenue & Expenses Trend</h3>
                     <div className="h-72 w-full">
-                        <ResponsiveContainer width="100%" height="100%">
+                        <ResponsiveContainer width="100%" height="100%" minWidth={0}>
                             <AreaChart data={MONTHLY_FINANCIAL_DATA}>
                                 <defs>
                                     <linearGradient id="colorIncome" x1="0" y1="0" x2="0" y2="1">
@@ -131,7 +140,7 @@ const Reports: React.FC = () => {
                 <div className="bg-white dark:bg-slate-800 p-6 rounded-xl border border-slate-200 dark:border-slate-700 shadow-sm transition-colors duration-300">
                     <h3 className="text-lg font-bold text-slate-800 dark:text-white mb-6">Sales by Category (B2B/B2C)</h3>
                     <div className="h-72 w-full flex items-center justify-center">
-                         <ResponsiveContainer width="100%" height="100%">
+                         <ResponsiveContainer width="100%" height="100%" minWidth={0}>
                             <PieChart>
                                 <Pie
                                     data={SALES_DISTRIBUTION}
@@ -233,7 +242,7 @@ const Reports: React.FC = () => {
                     <div className="bg-white dark:bg-slate-800 p-6 rounded-xl border border-slate-200 dark:border-slate-700 shadow-sm transition-colors duration-300">
                         <h3 className="text-lg font-bold text-slate-800 dark:text-white mb-6">Receivables Ageing Report</h3>
                         <div className="h-64 w-full">
-                            <ResponsiveContainer width="100%" height="100%">
+                            <ResponsiveContainer width="100%" height="100%" minWidth={0}>
                                 <BarChart data={AGEING_DATA} layout="vertical">
                                     <CartesianGrid strokeDasharray="3 3" horizontal={true} vertical={false} stroke="#334155" opacity={0.2}/>
                                     <XAxis type="number" hide />
@@ -300,7 +309,7 @@ const Reports: React.FC = () => {
                  <div className="bg-white dark:bg-slate-800 p-6 rounded-xl border border-slate-200 dark:border-slate-700 shadow-sm transition-colors duration-300">
                     <h3 className="text-lg font-bold text-slate-800 dark:text-white mb-6">Top Selling Services</h3>
                     <div className="h-80 w-full">
-                        <ResponsiveContainer width="100%" height="100%">
+                        <ResponsiveContainer width="100%" height="100%" minWidth={0}>
                             <BarChart data={TOP_PRODUCTS} margin={{ top: 20, right: 30, left: 20, bottom: 5 }}>
                                 <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#334155" opacity={0.2}/>
                                 <XAxis dataKey="name" axisLine={false} tickLine={false} tick={{fill: '#64748b', fontSize: 12, fontWeight: 600}} dy={10} />

@@ -3,11 +3,11 @@ import { DUMMY_CLIENTS, DUMMY_LEDGER_ENTRIES } from '../constants';
 import { Client, LedgerEntry, BusinessType } from '../types';
 import { formatCurrency, generateId, HOME_STATE } from '../utils';
 import { 
-  Search, Plus, Filter, MoreHorizontal, User, 
-  Phone, Mail, MapPin, Building2, ArrowRight,
+  Search, Plus, Filter, User, 
+  Phone, Mail, Building2,
   Download, Printer, FileText, ArrowLeft,
   ChevronRight, Wallet, Edit, Trash2, X, Save,
-  CreditCard, CheckCircle2, AlertCircle, ArrowUpRight, ArrowDownRight
+  CheckCircle2
 } from 'lucide-react';
 
 // --- TYPES FOR LOCAL STATE ---
@@ -222,7 +222,25 @@ const ClientFormModal = ({
 };
 
 // --- TRANSACTION FORM MODAL ---
-const TransactionModal = ({ isOpen, onClose, onSave, clientName }: any) => {
+interface TransactionData {
+    date: string;
+    type: string;
+    amount: number;
+    ref: string;
+    desc: string;
+}
+
+const TransactionModal = ({ 
+    isOpen, 
+    onClose, 
+    onSave, 
+    clientName 
+}: { 
+    isOpen: boolean; 
+    onClose: () => void; 
+    onSave: (data: TransactionData) => void; 
+    clientName: string;
+}) => {
     const [amount, setAmount] = useState('');
     const [type, setType] = useState('Payment');
     const [date, setDate] = useState(new Date().toISOString().split('T')[0]);
@@ -298,7 +316,7 @@ const LedgerView = ({
     client: Client, 
     onBack: () => void, 
     entries: LedgerEntry[], 
-    onAddEntry: (entry: any) => void 
+    onAddEntry: (entry: TransactionData) => void 
 }) => {
   const [isTxModalOpen, setIsTxModalOpen] = useState(false);
   
@@ -498,14 +516,14 @@ const ClientList = () => {
       setIsFormOpen(true);
   };
 
-  const handleAddTransaction = (data: any) => {
+  const handleAddTransaction = (data: TransactionData) => {
       if (!selectedClient) return;
 
       const newEntry: LedgerEntry = {
           id: generateId(),
           clientId: selectedClient.id,
           date: data.date,
-          type: data.type,
+          type: data.type as 'Payment' | 'Credit Note', // Simplified for demo, actual app would handle types better
           reference: data.ref || 'MANUAL',
           description: data.desc || 'Manual Entry',
           debit: 0,

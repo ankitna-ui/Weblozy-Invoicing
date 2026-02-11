@@ -1,5 +1,5 @@
 import React from 'react';
-import { LayoutDashboard, FileText, Users, FilePlus, Receipt, Settings, BarChart3, PieChart, X, Moon, Sun } from 'lucide-react';
+import { LayoutDashboard, FileText, Users, FilePlus, Settings, BarChart3, X, Moon, Sun } from 'lucide-react';
 
 interface SidebarProps {
   currentView: string;
